@@ -45,7 +45,7 @@ export default {
    *
    * @param {string} apiKey
    */
-  setApiKey(apiKey: string): void {
+  setApiKey(apiKey) {
     API_KEY = apiKey;
   },
 
@@ -66,7 +66,7 @@ export default {
    * @param {string} [apiKey]
    * @returns {Promise}
    */
-  async fromLatLng(lat: string, lng: string, apiKey: string): Promise {
+  async fromLatLng(lat, lng, apiKey) {
     if (!lat || !lng) {
       log("Provided coordinates are invalid", true);
       return Promise.reject(new Error("Provided coordinates are invalid"));
@@ -90,7 +90,7 @@ export default {
    * @param {string} [apiKey]
    * @returns {Promise}
    */
-  async fromAddress(address: string, apiKey: string): Promise {
+  async fromAddress(address, apiKey) {
     if (!address) {
       log("Provided address is invalid", true);
       return Promise.reject(new Error("Provided address is invalid"));
