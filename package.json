@@ -1,13 +1,9 @@
 {
   "name": "react-geocode",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description":
     "A React module to transform a description of a location (i.e. street address, town name, etc.) into geographic coordinates (i.e. latitude and longitude) and vice versa.",
   "main": "./lib/index.js",
-  "scripts": {
-    "build": "babel src --presets babel-preset-es2015 --out-dir lib",
-    "prepublish": "npm run build"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shukerullah/react-geocode.git"
@@ -26,9 +22,5 @@
   "bugs": {
     "url": "https://github.com/shukerullah/react-geocode/issues"
   },
-  "homepage": "https://github.com/shukerullah/react-geocode#readme",
-  "devDependencies": {
-    "babel-cli": "6",
-    "babel-preset-es2015": "6"
-  }
+  "homepage": "https://github.com/shukerullah/react-geocode#readme"
 }
