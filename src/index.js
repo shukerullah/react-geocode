@@ -4,7 +4,6 @@
  * @package react-geocode
  * @author  Pir Shukarulalh Shah <shuker_rashdi@hotmail.com>  (http://www.shukarullah.com)
  */
-let regeneratorRuntime = require("regenerator-runtime");
 let DEBUG = false;
 let API_KEY = null;
 const GOOGLE_API = "https://maps.google.com/maps/api/geocode/json";
