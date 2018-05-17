@@ -54,7 +54,7 @@ Geocode.fromAddress("Eiffel Tower").then(
 | :------------ |:--------------- |:---------------:| :---------------:| :-----|
 | setApiKey | `api_key` | - | `function` | set [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro) for purposes of quota management. Its optional but recommended |
 | enableDebug | `true` or `false` | - | `function` | Enable or disable logs. Its optional. |
-| fromLatLng | `latitude` and `longitude` | `response` | `function` | Get address from latidude & longitude. |
+| fromLatLng | `latitude`, `longitude` and `language` | `response` | `function` | Get address from latidude & longitude. |
 | fromAddress | `address` | `response` | `function` | Get latidude & longitude from address. |
 
 
