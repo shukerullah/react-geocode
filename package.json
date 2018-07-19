@@ -1,8 +1,7 @@
 {
   "name": "react-geocode",
-  "version": "0.0.9",
-  "description":
-    "A React module to transform a description of a location (i.e. street address, town name, etc.) into geographic coordinates (i.e. latitude and longitude) and vice versa.",
+  "version": "0.1.0",
+  "description": "A React module to transform a description of a location (i.e. street address, town name, etc.) into geographic coordinates (i.e. latitude and longitude) and vice versa.",
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
@@ -16,8 +15,7 @@
     "geocoder",
     "geocoding"
   ],
-  "author":
-    "Pir Shukarulalh Shah <shuker_rashdi@hotmail.com> (http://www.shukarullah.com)",
+  "author": "Pir Shukarulalh Shah <shuker_rashdi@hotmail.com> (http://www.shukarullah.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/shukerullah/react-geocode/issues"
