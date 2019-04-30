@@ -73,7 +73,7 @@ export default {
    * @param {string} lat
    * @param {string} lng
    * @param {string} [apiKey]
-   * @param {string} language
+   * @param {string} [language]
    * @returns {Promise}
    */
   async fromLatLng(lat, lng, apiKey, language) {
