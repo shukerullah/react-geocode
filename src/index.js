@@ -1,5 +1,5 @@
 /**
- * React Geocode Module
+ * Geocode Module
  *
  * @package react-geocode
  * @author  Pir Shukarulalh Shah <shuker_rashdi@hotmail.com>  (http://www.shukarullah.com)
