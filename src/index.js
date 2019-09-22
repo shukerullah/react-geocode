@@ -6,8 +6,8 @@
  */
 let DEBUG = false;
 let API_KEY = null;
-let REGION = null;
 let LANGUAGE = "en";
+let REGION = null;
 const GOOGLE_API = "https://maps.google.com/maps/api/geocode/json";
 
 function log(message, warn = false) {
@@ -21,7 +21,7 @@ function log(message, warn = false) {
 }
 
 async function handleUrl(url) {
-  const response = await fetch(url).catch(error =>
+  const response = await fetch(url).catch(() =>
     Promise.reject(new Error("Error fetching data"))
   );
 
@@ -34,9 +34,14 @@ async function handleUrl(url) {
     log(json);
     return json;
   }
-  log(`Server returned status code ${json.status}`, true);
+  log(
+    `${json.error_message}.\nServer returned status code ${json.status}`,
+    true
+  );
   return Promise.reject(
-    new Error(`Server returned status code ${json.status}`)
+    new Error(
+      `${json.error_message}.\nServer returned status code ${json.status}`
+    )
   );
 }
 
@@ -98,11 +103,15 @@ export default {
 
     if (apiKey || API_KEY) {
       API_KEY = apiKey || API_KEY;
-      LANGUAGE = language || LANGUAGE;
-      url += `&key=${API_KEY}&language=${LANGUAGE}`;
+      url += `&key=${API_KEY}`;
     }
 
-    if (REGION || region) {
+    if (language || LANGUAGE) {
+      LANGUAGE = language || LANGUAGE;
+      url += `&language=${LANGUAGE}`;
+    }
+
+    if (region || REGION) {
       REGION = region || REGION;
       url += `&region=${encodeURIComponent(REGION)}`;
     }
@@ -115,10 +124,11 @@ export default {
    *
    * @param {string} address
    * @param {string} [apiKey]
+   * @param {string} [language]
    * @param {string} [region]
    * @returns {Promise}
    */
-  async fromAddress(address, apiKey, region) {
+  async fromAddress(address, apiKey, language, region) {
     if (!address) {
       log("Provided address is invalid", true);
       return Promise.reject(new Error("Provided address is invalid"));
@@ -131,9 +141,14 @@ export default {
       url += `&key=${API_KEY}`;
     }
 
-    if (REGION || region) {
+    if (language || LANGUAGE) {
+      LANGUAGE = language || LANGUAGE;
+      url += `&language=${LANGUAGE}`;
+    }
+
+    if (region || REGION) {
       REGION = region || REGION;
-      url += `&region=${encodeURI(REGION)}`;
+      url += `&region=${encodeURIComponent(REGION)}`;
     }
 
     return handleUrl(url);

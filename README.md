@@ -38,6 +38,10 @@ Geocode.setApiKey("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 // set response language. Defaults to english.
 Geocode.setLanguage("en");
 
+// set response region. Its optional.
+// A Geocoding request with region=es (Spain) will return the Spanish city.
+Geocode.setRegion("es");
+
 // Enable or disable logs. Its optional.
 Geocode.enableDebug();
 
@@ -66,13 +70,14 @@ Geocode.fromAddress("Eiffel Tower").then(
 
 #### Methods
 
-| Method      | Arguments                  |   Params   |    Type    | Description                                                                                                                                                      |
-| :---------- | :------------------------- | :--------: | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| setApiKey   | `api_key`                  |     -      | `function` | set [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro) for purposes of quota management. Its optional but recommended |
-| setLanguage | `language code`            |     -      | `function` | Specify language of the parsed address. [List of the available language codes](https://developers.google.com/maps/faq#languagesupport). Defaults to english      |
-| enableDebug | `true` or `false`          |     -      | `function` | Enable or disable logs. Its optional.                                                                                                                            |
-| fromLatLng  | `latitude` and `longitude` | `response` | `function` | Get address from latidude & longitude.                                                                                                                           |
-| fromAddress | `address`                  | `response` | `function` | Get latidude & longitude from address.                                                                                                                           |
+| Method      | Arguments                                                  |   Params   |    Type    | Description                                                                                                                                                      |
+| :---------- | :--------------------------------------------------------- | :--------: | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| setApiKey   | `api_key`                                                  |     -      | `function` | set [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro) for purposes of quota management. Its optional but recommended |
+| setLanguage | `language`                                                 |     -      | `function` | Specify language of the parsed address. [List of the available language codes](https://developers.google.com/maps/faq#languagesupport). Defaults to english      |
+| setRegion   | `region`                                                   |     -      | `function` | Specify region of the parsed address.                                                                                                                            |
+| enableDebug | `true` or `false`                                          |     -      | `function` | Enable or disable logs. Its optional.                                                                                                                            |
+| fromLatLng  | `latitude`, `longitude`, `*apiKey`, `*language`, `*region` | `response` | `function` | Get address from latidude & longitude. \* Optional arguments                                                                                                     |
+| fromAddress | `address`, `*apiKey`, `*language`, `*region`               | `response` | `function` | Get latidude & longitude from address. \* Optional arguments                                                                                                     |
 
 ### Follow me on Twitter: [@shukerullah](https://twitter.com/shukerullah)
 
