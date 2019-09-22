@@ -94,7 +94,7 @@ export default {
     }
 
     const latLng = `${lat},${lng}`;
-    let url = `${GOOGLE_API}?latlng=${encodeURI(latLng)}`;
+    let url = `${GOOGLE_API}?latlng=${encodeURIComponent(latLng)}`;
 
     if (apiKey || API_KEY) {
       API_KEY = apiKey || API_KEY;
@@ -104,7 +104,7 @@ export default {
 
     if (REGION || region) {
       REGION = region || REGION;
-      url += `&region=${encodeURI(REGION)}`;
+      url += `&region=${encodeURIComponent(REGION)}`;
     }
 
     return handleUrl(url);
@@ -124,7 +124,7 @@ export default {
       return Promise.reject(new Error("Provided address is invalid"));
     }
 
-    let url = `${GOOGLE_API}?address=${encodeURI(address)}`;
+    let url = `${GOOGLE_API}?address=${encodeURIComponent(address)}`;
 
     if (apiKey || API_KEY) {
       API_KEY = apiKey || API_KEY;
