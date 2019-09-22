@@ -1,13 +1,13 @@
 /**
- * React Geocode Module
+ * Geocode Module
  *
  * @package react-geocode
  * @author  Pir Shukarulalh Shah <shuker_rashdi@hotmail.com>  (http://www.shukarullah.com)
  */
 let DEBUG = false;
 let API_KEY = null;
-let LANGUAGE = 'en';
 let REGION = null;
+let LANGUAGE = "en";
 const GOOGLE_API = "https://maps.google.com/maps/api/geocode/json";
 
 function log(message, warn = false) {
