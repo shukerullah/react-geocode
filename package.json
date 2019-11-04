@@ -1,6 +1,6 @@
 {
   "name": "react-geocode",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A module to transform a description of a location (i.e. street address, town name, etc.) into geographic coordinates (i.e. latitude and longitude) and vice versa.",
   "main": "./lib/index.js",
   "repository": {
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/shukerullah/react-geocode/issues"
   },
-  "homepage": "https://github.com/shukerullah/react-geocode#readme"
+  "homepage": "https://github.com/shukerullah/react-geocode#readme",
+  "dependencies": {
+    "regenerator-runtime": "^0.13.3"
+  }
 }
