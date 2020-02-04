@@ -45,7 +45,7 @@ Geocode.setRegion("es");
 // Enable or disable logs. Its optional.
 Geocode.enableDebug();
 
-// Get address from latidude & longitude.
+// Get address from latitude & longitude.
 Geocode.fromLatLng("48.8583701", "2.2922926").then(
   response => {
     const address = response.results[0].formatted_address;
@@ -56,7 +56,7 @@ Geocode.fromLatLng("48.8583701", "2.2922926").then(
   }
 );
 
-// Get latidude & longitude from address.
+// Get latitude & longitude from address.
 Geocode.fromAddress("Eiffel Tower").then(
   response => {
     const { lat, lng } = response.results[0].geometry.location;
@@ -76,8 +76,8 @@ Geocode.fromAddress("Eiffel Tower").then(
 | setLanguage | `language`                                                 |     -      | `function` | Specify language of the parsed address. [List of the available language codes](https://developers.google.com/maps/faq#languagesupport). Defaults to english      |
 | setRegion   | `region`                                                   |     -      | `function` | Specify region of the parsed address.                                                                                                                            |
 | enableDebug | `true` or `false`                                          |     -      | `function` | Enable or disable logs. Its optional.                                                                                                                            |
-| fromLatLng  | `latitude`, `longitude`, `*apiKey`, `*language`, `*region` | `response` | `function` | Get address from latidude & longitude. \* Optional arguments                                                                                                     |
-| fromAddress | `address`, `*apiKey`, `*language`, `*region`               | `response` | `function` | Get latidude & longitude from address. \* Optional arguments                                                                                                     |
+| fromLatLng  | `latitude`, `longitude`, `*apiKey`, `*language`, `*region` | `response` | `function` | Get address from latitude & longitude. \* Optional arguments                                                                                                     |
+| fromAddress | `address`, `*apiKey`, `*language`, `*region`               | `response` | `function` | Get latitude & longitude from address. \* Optional arguments                                                                                                     |
 
 ### Follow me on Twitter: [@shukerullah](https://twitter.com/shukerullah)
 
