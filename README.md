@@ -1,6 +1,6 @@
-# react-geocode
+![react-geocode](https://socialify.git.ci/shukerullah/react-geocode/image?font=Inter&forks=1&issues=1&language=1&pulls=1&stargazers=1&theme=Light)
 
-Despite its name, this project
+__Despite its name, this project__
 
 ```
  _    ,          _ __                                                           _ __
