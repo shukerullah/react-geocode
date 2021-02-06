@@ -42,6 +42,11 @@ Geocode.setLanguage("en");
 // A Geocoding request with region=es (Spain) will return the Spanish city.
 Geocode.setRegion("es");
 
+// set location_type filter . Its optional.
+// google geocoder returns more that one address for given lat/lng. In some case we need one address as response for which google itself provides a location_type filter. So we can easily parse the result for fetching address components
+// ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values. And according to the below google docs in description, ROOFTOP param returns the most accurate result.
+Geocode.setLocationType("ROOFTOP");
+
 // Enable or disable logs. Its optional.
 Geocode.enableDebug();
 
@@ -50,6 +55,34 @@ Geocode.fromLatLng("48.8583701", "2.2922926").then(
   response => {
     const address = response.results[0].formatted_address;
     console.log(address);
+  },
+  error => {
+    console.error(error);
+  }
+);
+
+// Get formatted address, city, state, country from latitude & longitude when 
+// Geocode.setLocationType("ROOFTOP") enabled
+// the below parser will work for most of the countries
+Geocode.fromLatLng("48.8583701", "2.2922926").then(
+  response => {
+    const address = response.results[0].formatted_address;
+    console.log(address);
+      for (var i = 0; i < results[0].address_components.length; i++) {
+                    for (var b = 0; b < results[0].address_components[i].types.length; b++) {
+                        switch (results[0].address_components[i].types[b]) {
+                            case 'locality':
+                                city = results[0].address_components[i].long_name;
+                                break;
+                            case 'administrative_area_level_1':
+                                state = results[0].address_components[i].long_name;
+                                break;
+                            case 'country':
+                                country = results[0].address_components[i].long_name;
+                                break;
+                        }
+                    }
+                }
   },
   error => {
     console.error(error);
@@ -75,6 +108,7 @@ Geocode.fromAddress("Eiffel Tower").then(
 | setApiKey   | `api_key`                                                  |     -      | `function` | set [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro) for purposes of quota management. Its optional but recommended |
 | setLanguage | `language`                                                 |     -      | `function` | Specify language of the parsed address. [List of the available language codes](https://developers.google.com/maps/faq#languagesupport). Defaults to english      |
 | setRegion   | `region`                                                   |     -      | `function` | Specify region of the parsed address.                                                                                                                            |
+| setLocationType   | `location_type`                                                   |     -      | `function` | Specify geometry of the parsed address. [List of available params](https://developers.google.com/maps/documentation/geocoding/overview#:~:text=%22ROOFTOP%22%20indicates%20that%20the%20returned,points%20(such%20as%20intersections))                                                                                                                            |
 | enableDebug | `true` or `false`                                          |     -      | `function` | Enable or disable logs. Its optional.                                                                                                                            |
 | fromLatLng  | `latitude`, `longitude`, `*apiKey`, `*language`, `*region` | `response` | `function` | Get address from latitude & longitude. \* Optional arguments                                                                                                     |
 | fromAddress | `address`, `*apiKey`, `*language`, `*region`               | `response` | `function` | Get latitude & longitude from address. \* Optional arguments                                                                                                     |

@@ -85,14 +85,26 @@ export default {
   /**
    *
    *
+   * @param {string} region
+   * Accepted values: ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE
+   */
+  setLocationType(locationType) {
+    LOCATIONTYPE = locationType;
+  },
+
+
+  /**
+   *
+   *
    * @param {string} lat
    * @param {string} lng
    * @param {string} [apiKey]
    * @param {string} [language]
    * @param {string} [region]
+   * @param {string} [locationType]
    * @returns {Promise}
    */
-  async fromLatLng(lat, lng, apiKey, language, region) {
+  async fromLatLng(lat, lng, apiKey, language, region, locationType) {
     if (!lat || !lng) {
       log("Provided coordinates are invalid", true);
       return Promise.reject(new Error("Provided coordinates are invalid"));
@@ -115,6 +127,12 @@ export default {
       REGION = region || REGION;
       url += `&region=${encodeURIComponent(REGION)}`;
     }
+
+    if (locationType || LOCATIONTYPE) {
+      LOCATIONTYPE = locationType || LOCATIONTYPE;
+      url += `&location_type=${encodeURIComponent(LOCATIONTYPE)}`;
+    }
+
 
     return handleUrl(url);
   },
