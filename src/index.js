@@ -1,14 +1,21 @@
 /**
  * Geocode Module
  *
+ * A module to transform a description of a location (i.e. street address, town name, etc.)
+ * into geographic coordinates (i.e. latitude and longitude) and vice versa.
+ *
+ * This module uses Google Maps Geocoding API and requires an API key for purposes of quota management.
+ *
  * @package react-geocode
- * @author  Pir Shukarulalh Shah <shuker_rashdi@hotmail.com>  (http://www.shukarullah.com)
+ * @author  Pir Shukarulalh Shah <shuker_rashdi@yahoo.com>  (http://www.shukarullah.com)
+ * @collaborator  Ziyaddin Sadigov <ziyaddinsadigov@gmail.com>
  */
+
 let DEBUG = false;
 let API_KEY = null;
 let LANGUAGE = "en";
 let REGION = null;
-let LOCATIONTYPE=null;
+let LOCATION_TYPE = null;
 const GOOGLE_API = "https://maps.googleapis.com/maps/api/geocode/json";
 
 function log(message, warn = false) {
@@ -90,9 +97,8 @@ export default {
    * Accepted values: ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE
    */
   setLocationType(locationType) {
-    LOCATIONTYPE = locationType;
+    LOCATION_TYPE = locationType;
   },
-
 
   /**
    *
@@ -129,11 +135,10 @@ export default {
       url += `&region=${encodeURIComponent(REGION)}`;
     }
 
-    if (locationType || LOCATIONTYPE) {
-      LOCATIONTYPE = locationType || LOCATIONTYPE;
-      url += `&location_type=${encodeURIComponent(LOCATIONTYPE)}`;
+    if (locationType || LOCATION_TYPE) {
+      LOCATION_TYPE = locationType || REGION;
+      url += `&location_type=${encodeURIComponent(LOCATION_TYPE)}`;
     }
-
 
     return handleUrl(url);
   },
