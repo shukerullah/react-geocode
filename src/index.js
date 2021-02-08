@@ -1,13 +1,21 @@
 /**
  * Geocode Module
  *
+ * A module to transform a description of a location (i.e. street address, town name, etc.)
+ * into geographic coordinates (i.e. latitude and longitude) and vice versa.
+ *
+ * This module uses Google Maps Geocoding API and requires an API key for purposes of quota management.
+ *
  * @package react-geocode
- * @author  Pir Shukarulalh Shah <shuker_rashdi@hotmail.com>  (http://www.shukarullah.com)
+ * @author  Pir Shukarulalh Shah <shuker_rashdi@yahoo.com>  (http://www.shukarullah.com)
+ * @collaborator  Ziyaddin Sadigov <ziyaddinsadigov@gmail.com>
  */
+
 let DEBUG = false;
 let API_KEY = null;
 let LANGUAGE = "en";
 let REGION = null;
+let LOCATION_TYPE = null;
 const GOOGLE_API = "https://maps.googleapis.com/maps/api/geocode/json";
 
 function log(message, warn = false) {
@@ -85,14 +93,25 @@ export default {
   /**
    *
    *
+   * @param {string} locationType
+   * Accepted values: ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE
+   */
+  setLocationType(locationType) {
+    LOCATION_TYPE = locationType;
+  },
+
+  /**
+   *
+   *
    * @param {string} lat
    * @param {string} lng
    * @param {string} [apiKey]
    * @param {string} [language]
    * @param {string} [region]
+   * @param {string} [locationType]
    * @returns {Promise}
    */
-  async fromLatLng(lat, lng, apiKey, language, region) {
+  async fromLatLng(lat, lng, apiKey, language, region, locationType) {
     if (!lat || !lng) {
       log("Provided coordinates are invalid", true);
       return Promise.reject(new Error("Provided coordinates are invalid"));
@@ -114,6 +133,11 @@ export default {
     if (region || REGION) {
       REGION = region || REGION;
       url += `&region=${encodeURIComponent(REGION)}`;
+    }
+
+    if (locationType || LOCATION_TYPE) {
+      LOCATION_TYPE = locationType || REGION;
+      url += `&location_type=${encodeURIComponent(LOCATION_TYPE)}`;
     }
 
     return handleUrl(url);
