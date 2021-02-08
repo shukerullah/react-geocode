@@ -86,7 +86,7 @@ export default {
   /**
    *
    *
-   * @param {string} region
+   * @param {string} locationType
    * Accepted values: ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE
    */
   setLocationType(locationType) {
