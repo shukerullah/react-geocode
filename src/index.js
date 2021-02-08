@@ -8,6 +8,7 @@ let DEBUG = false;
 let API_KEY = null;
 let LANGUAGE = "en";
 let REGION = null;
+let LOCATIONTYPE=null;
 const GOOGLE_API = "https://maps.googleapis.com/maps/api/geocode/json";
 
 function log(message, warn = false) {
