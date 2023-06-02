@@ -1,1 +1,28 @@
-src/
+# Node.js files
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+
+# TypeScript files
+types/
+tsconfig.json
+
+# Source and example files
+/src/
+/example/
+
+# Source control files
+.git/
+.gitignore
+
+# IDE and editor files
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
