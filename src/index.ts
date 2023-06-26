@@ -48,7 +48,7 @@ const defaultOptions: GeocodeOptions = {};
  * @function geocodeRequest
  * @async
  * @param {GeocodeQueryParams} queryParams - The query parameters for the geocoding request.
- * @returns {Promise<GeocodeResponse>} - A promise that resolves with the geocoding response object.
+ * @returns {Promise<GeocodeResponse>} A promise that resolves with the geocoding response object.
  * @throws {Error} - Throws an error if the geocoding request fails.
  */
 async function geocodeRequest(
@@ -160,8 +160,8 @@ export function setLocationType(locationType: string): void {
  * @function geocode
  * @async
  * @param {string} address - The address to geocode.
- * @param {Options} [options={}] - Additional options for the geocoding request.
- * @returns {Promise<GeocodeResponse>} - A promise that resolves with the geocoding response object.
+ * @param {GeocodeOptions} [options={}] - Additional options for the geocoding request.
+ * @returns {Promise<GeocodeResponse>} A promise that resolves with the geocoding response object.
  * @throws {Error} - Throws an error if the address is invalid or the geocoding request fails.
  */
 export function geocode(
@@ -185,7 +185,7 @@ export function geocode(
  * @async
  * @param {number} lat - The latitude to reverse geocode.
  * @param {number} lng - The longitude to reverse geocode.
- * @param {Options} [options={}] - Additional options for the reverse geocoding request such as language, result_type, and locationType.
+ * @param {GeocodeOptions} [options={}] - Additional options for the reverse geocoding request.
  * @returns {Promise} - A promise that resolves with the reverse geocoding response object.
  * @throws {Error} - Throws an error if the latitude or longitude are invalid or the geocoding request fails.
  */
@@ -205,6 +205,9 @@ export function reverseGeocode(
   return geocodeRequest(queryParams);
 }
 
+/**
+ * @deprecated use `reverseGeocode` instead
+ */
 export function fromLatLng(
   lat: number,
   lng: number,
@@ -230,6 +233,9 @@ export function fromLatLng(
   return reverseGeocode(lat, lng, options);
 }
 
+/**
+ * @deprecated use `geocode` instead
+ */
 export function fromAddress(
   address: string,
   key?: string,
