@@ -104,12 +104,26 @@ Geocode.fromAddress("Eiffel Tower").then(
     console.error(error);
   }
 );
+
+// Get address, latitude & longitude from place_id.
+// useful to get the same address informations in different languages
+// ChIJgzdRtHRhLxMRY-YxN1kxig4  Piazza del Colosseo, 1, 00184 Roma RM, Italy 
+// EipQLnphIFNhbiBNYXJjbywgMiwgMzAxMjQgVmVuZXppYSBWRSwgSXRhbHkiMBIuChQKEgmbk_5117F-RxH78rNJtR36wBACKhQKEglFSalx17F-RxHsO4mJJuHg5A   P.za San Marco, 2, 30124 Venezia VE, Italy  
+Geocode.fromAddress("ChIJPfSfhdexfkcRyMPGCbQyI04").then(
+  (response) => {
+    const address = response.results[0].formatted_address;
+    console.log(formatted_address);
+  },
+  (error) => {
+    console.error(error);
+  }
+);
 ```
 
 #### Methods
 
 | Method          | Arguments                                                  |   Params   |    Type    | Description                                                                                                                                                                                                                              |
-| :-------------- | :--------------------------------------------------------- | :--------: | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :-------------- |:-----------------------------------------------------------| :--------: | :--------: |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | setApiKey       | `api_key`                                                  |     -      | `function` | set [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro) for purposes of quota management. Its optional but recommended                                                                         |
 | setLanguage     | `language`                                                 |     -      | `function` | Specify language of the parsed address. [List of the available language codes](https://developers.google.com/maps/faq#languagesupport). Defaults to english                                                                              |
 | setRegion       | `region`                                                   |     -      | `function` | Specify region of the parsed address.                                                                                                                                                                                                    |
@@ -117,6 +131,7 @@ Geocode.fromAddress("Eiffel Tower").then(
 | enableDebug     | `true` or `false`                                          |     -      | `function` | Enable or disable logs. Its optional.                                                                                                                                                                                                    |
 | fromLatLng      | `latitude`, `longitude`, `*apiKey`, `*language`, `*region` | `response` | `function` | Get address from latitude & longitude. \* Optional arguments                                                                                                                                                                             |
 | fromAddress     | `address`, `*apiKey`, `*language`, `*region`               | `response` | `function` | Get latitude & longitude from address. \* Optional arguments                                                                                                                                                                             |
+| fromPlaceId     | `place_id`, `*apiKey`, `*language`, `*region`              | `response` | `function` | Get address from place_id. \* Optional arguments.  [Overview on Place IDs](https://developers.google.com/maps/documentation/places/web-service/place-id)                                                                                 |
 
 ### Follow me on Twitter: [@shukerullah](https://twitter.com/shukerullah)
 
