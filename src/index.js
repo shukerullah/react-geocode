@@ -177,4 +177,39 @@ export default {
 
     return handleUrl(url);
   },
+
+  /**
+   * @see https://developers.google.com/maps/documentation/places/web-service/place-id
+   *
+   * @param {string} placeId
+   * @param {string} [apiKey]
+   * @param {string} [language]
+   * @param {string} [region]
+   * @returns {Promise}
+   */
+  async fromPlaceId(placeId, apiKey, language, region) {
+    if (!placeId) {
+      log("Provided place_id is invalid", true);
+      return Promise.reject(new Error("Provided place_id is invalid"));
+    }
+
+    let url = `${GOOGLE_API}?place_id=${encodeURIComponent(placeId)}`;
+
+    if (apiKey || API_KEY) {
+      API_KEY = apiKey || API_KEY;
+      url += `&key=${API_KEY}`;
+    }
+
+    if (language || LANGUAGE) {
+      LANGUAGE = language || LANGUAGE;
+      url += `&language=${LANGUAGE}`;
+    }
+
+    if (region || REGION) {
+      REGION = region || REGION;
+      url += `&region=${encodeURIComponent(REGION)}`;
+    }
+
+    return handleUrl(url);
+  },
 };
