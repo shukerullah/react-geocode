@@ -109,7 +109,7 @@ Geocode.fromAddress("Eiffel Tower").then(
 // useful to get the same address informations in different languages
 // ChIJgzdRtHRhLxMRY-YxN1kxig4  Piazza del Colosseo, 1, 00184 Roma RM, Italy 
 // EipQLnphIFNhbiBNYXJjbywgMiwgMzAxMjQgVmVuZXppYSBWRSwgSXRhbHkiMBIuChQKEgmbk_5117F-RxH78rNJtR36wBACKhQKEglFSalx17F-RxHsO4mJJuHg5A   P.za San Marco, 2, 30124 Venezia VE, Italy  
-Geocode.fromAddress("ChIJPfSfhdexfkcRyMPGCbQyI04").then(
+Geocode.fromPlaceId("ChIJPfSfhdexfkcRyMPGCbQyI04").then(
   (response) => {
     const address = response.results[0].formatted_address;
     console.log(formatted_address);
