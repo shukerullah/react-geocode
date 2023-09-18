@@ -4,9 +4,16 @@ npm-debug.log
 yarn-error.log
 yarn.lock
 
-# TypeScript files
-types/
+# Exclude TypeScript configuration and other build files
 tsconfig.json
+*.js
+*.js.map
+
+# Include only the distributable code
+!dist/
+
+# Exclude TypeScript declaration files
+types/
 
 # Source and example files
 /src/

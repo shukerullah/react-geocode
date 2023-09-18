@@ -31,26 +31,25 @@ npm install --save react-geocode
 
 ```js
 import {
-  geocode,
-  reverseGeocode,
   setKey,
+  geocode,
   setLanguage,
   setRegion,
   setLocationType,
+  RequestType
 } from "react-geocode";
 
-// Set Google Maps Geocoding API key for purposes of quota management. It's optional but recommended.
+// Set Google Maps Geocoding API key for quota management (optional but recommended).
 setKey("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
-// Set default response language. Optional.
+// Set default response language (optional).
 setLanguage("en");
 
-// Set default response region. Optional.
-// A Geocoding request with region=es (Spain) will return the Spanish city.
+// Set default response region (optional).
 setRegion("es");
 
 // Get latitude & longitude from address.
-geocode("Eiffel Tower").then(
+geocode(RequestType.ADDRESS, "Eiffel Tower").then(
   (response) => {
     const { lat, lng } = response.results[0].geometry.location;
     console.log(lat, lng);
@@ -60,16 +59,26 @@ geocode("Eiffel Tower").then(
   }
 );
 
-// Set default location_type filter. Optional.
-// Google Geocoder returns more than one address for a given lat/lng.
-// In some cases, we need one address as a response for which Google itself provides a location_type filter.
-// So we can easily parse the result for fetching address components.
-// ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values.
-// And according to the below Google docs in the description, ROOFTOP param returns the most accurate result.
+// Get latitude & longitude from place_id.
+geocode(RequestType.PLACE_ID, "ChIJd8BlQ2BZwokRAFUEcm_qrcA").then(
+  (response) => {
+    const { lat, lng } = response.results[0].geometry.location;
+    console.log(lat, lng);
+  },
+  (error) => {
+    console.error(error);
+  }
+);
+
+// Set default location_type filter (optional).
+// Google geocoder returns multiple addresses for a given lat/lng.
+// Location_type filter helps fetch a single address.
+// Accepted values: ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE.
+// ROOFTOP provides the most accurate result.
 setLocationType("ROOFTOP");
 
 // Get address from latitude & longitude.
-reverseGeocode("48.8583701", "2.2922926").then(
+geocode(RequestType.LATLNG, "48.8583701,2.2922926").then(
   (response) => {
     const address = response.results[0].formatted_address;
     console.log(address);
@@ -81,17 +90,12 @@ reverseGeocode("48.8583701", "2.2922926").then(
 
 // Get formatted address, city, state, country from latitude & longitude when
 // Geocode.setLocationType("ROOFTOP") is enabled.
-// The below parser will work for most countries.
-reverseGeocode("48.8583701", "2.2922926").then(
+geocode("latlng", "48.8583701,2.2922926").then(
   (response) => {
     const address = response.results[0].formatted_address;
     let city, state, country;
     for (let i = 0; i < response.results[0].address_components.length; i++) {
-      for (
-        let j = 0;
-        j < response.results[0].address_components[i].types.length;
-        j++
-      ) {
+      for (let j = 0; j < response.results[0].address_components[i].types.length; j++) {
         switch (response.results[0].address_components[i].types[j]) {
           case "locality":
             city = response.results[0].address_components[i].long_name;
@@ -106,28 +110,47 @@ reverseGeocode("48.8583701", "2.2922926").then(
       }
     }
     console.log(city, state, country);
+    console.log(address);
   },
   (error) => {
     console.error(error);
   }
 );
+
+// You can also pass optional params for geocode and reverseGeocode that will override
+// default options that you have set.
+const addressResponse = await geocode("address", "Eiffel Tower", {
+  language: "en",
+  region: "sp",
+});
+
+const placeIdResponse = await geocode("place_id", "Eiffel Tower", {
+  language: "en",
+  region: "sp",
+});
+
+const latlngResponse = await geocode("latlng", "48.8583701,2.2922926", {
+  language: "en",
+  region: "sp",
+  enable_address_descriptor: true
+});
 ```
 
 ### API
 
 #### Methods
-
-| Method          | Params                              |   Return   |    Type    | Description                                                                                                                                                                                                                    |
-| :-------------- | :---------------------------------- | :--------: | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| setKey          | `key`                               |     -      | `function` | Your application's API key. This key identifies your application for purposes of quota management. Learn how to [get a key](https://developers.google.com/maps/documentation/geocoding/get-api-key).                           |
-| setLanguage     | `language`                          |     -      | `function` | Specify language of the parsed address. [List of the available language codes](https://developers.google.com/maps/faq#languagesupport).                                                                                        |
-| setComponents   | `components`                        |     -      | `function` | A components filter with elements separated by a pipe (\|). See more information about [component filtering](https://developers.google.com/maps/documentation/geocoding/requests-geocoding#component-filtering).               |
-| setRegion       | `region`                            |     -      | `function` | Specify region of the parsed address. For more information see [Region Biasing](https://developers.google.com/maps/documentation/geocoding/requests-geocoding#RegionCodes).                                                    |
-| setBounds       | `bounds`                            |     -      | `function` | The bounding box of the viewport within which to bias geocode results more prominently. For more information see) [Viewport Biasing](https://developers.google.com/maps/documentation/geocoding/requests-geocoding#Viewports). |
-| setLocationType | `location_type`                     |     -      | `function` | A filter of one or more location types, separated by a pipe (\|). The following values are supported: `ROOFTOP` `RANGE_INTERPOLATED` `GEOMETRIC_CENTER` and `APPROXIMATE`                                                      |
-| setResultType   | `result_type`                       |     -      | `function` | A filter of one or more address types, separated by a pipe (\|)                                                                                                                                                                |
-| geocode         | `address`, `*options`               | `response` | `function` | Get latitude & longitude from address. \* Optional params                                                                                                                                                                      |
-| reverseGeocode  | `latitude`, `longitude`, `*options` | `response` | `function` | Get address from latitude & longitude. \* Optional params                                                                                                                                                                      |
+| Method               | Params                                   | Return   | Type      | Description                                                                                                                                                     |
+| :------------------- | :--------------------------------------- | :------: | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| setKey               | `key`                                    |    -     | function  | Your application's API key. This key identifies your application for purposes of quota management. Learn how to [get a key](https://developers.google.com/maps/documentation/geocoding/get-api-key).                                |
+| setLanguage          | `language`                               |    -     | function  | Specify the language of the parsed address. [List of available language codes](https://developers.google.com/maps/faq#languagesupport).                           |
+| setComponents        | `components`                             |    -     | function  | A components filter with elements separated by a pipe ( \| ). See more information about [component filtering](https://developers.google.com/maps/documentation/geocoding/requests-geocoding#component-filtering).            |
+| setRegion            | `region`                                 |    -     | function  | Specify the region of the parsed address. For more information, see [Region Biasing](https://developers.google.com/maps/documentation/geocoding/requests-geocoding#RegionCodes).                                               |
+| setBounds            | `bounds`                                 |    -     | function  | The bounding box of the viewport within which to bias geocode results more prominently. For more information, see [Viewport Biasing](https://developers.google.com/maps/documentation/geocoding/requests-geocoding#Viewports).     |
+| setLocationType      | `location_type`                          |    -     | function  | A filter of one or more location types, separated by a pipe ( \| ). The following values are supported: `ROOFTOP`, `RANGE_INTERPOLATED`, `GEOMETRIC_CENTER`, and `APPROXIMATE`.                                           |
+| setResultType        | `result_type`                            |    -     | function  | A filter of one or more address types, separated by a pipe ( \| )                                                                                                                                                           |
+| setOutputFormat      | `outputFormat` (OutputFormat)            |    -     | function  | Sets the desired output format for geocoding requests. The format can be either `XML` or `JSON`.                                                                                                                          |
+| enableAddressDescriptor | `enableAddressDescriptor` (boolean)   |    -     | function  | Sets whether to include an address descriptor in the reverse geocoding response.                                                                                                                                             |
+| geocode              | `requestType` (RequestType \| string), `value` (string), `options?` (GeocodeOptions) | response | function  | Get latitude & longitude from an address. Optional params.                                                                                                                                                                 |
 
 #### Geocode(address, \*options)
 
