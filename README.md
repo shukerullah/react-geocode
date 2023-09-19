@@ -191,7 +191,7 @@ geocode(RequestType.ADDRESS, address)
 
 ##### Parameters
 
-- **requestType** (`RequestType` | `string`): Identifier to specify the type of request (`place_id`, `address`, or `latlng`).
+- **requestType** (`RequestType` | `string`): Identifier to specify the type of request (`place_id`, `address`, `latlng`, `components` etc).
 - **value** (`string`): The value to geocode. This can be an address, latitude and longitude (`lat,lng`), or a place ID.
 - **options (optional `object`)**: Additional options for the geocoding request.
   - **key (`string`)**: API key for Google Geocoding API.
