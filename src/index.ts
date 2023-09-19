@@ -2,17 +2,17 @@
  * Enum defining possible request types for geocoding.
  */
 export enum RequestType {
-  ADDRESS = 'address',   // Geocoding by address
-  LATLNG = 'latlng',    // Geocoding by latitude and longitude
-  PLACE_ID = 'place_id' // Geocoding by place ID
+  ADDRESS = "address", // Geocoding by address
+  LATLNG = "latlng", // Geocoding by latitude and longitude
+  PLACE_ID = "place_id", // Geocoding by place ID
 }
 
 /**
  * Enum defining possible output formats for geocoding.
  */
 export enum OutputFormat {
-  XML = 'xml',   // Output format XML
-  JSON = 'json'  // Output format JSON
+  XML = "xml", // Output format XML
+  JSON = "json", // Output format JSON
 }
 
 /**
@@ -32,7 +32,7 @@ export interface GeocodeOptions {
   result_type?: string; // Result type filtering for the response.
   location_type?: string; // Location type filtering for the response.
   outputFormat: OutputFormat; // Desired output format (either XML or JSON)
-  enable_address_descriptor: boolean; // Whether to include an address descriptor in the reverse geocoding response.
+  enable_address_descriptor?: boolean; // Whether to include an address descriptor in the reverse geocoding response.
 }
 
 /**
@@ -53,14 +53,13 @@ interface GeocodeQueryParams extends GeocodeOptions {
   place_id?: string; // The plce id to geocode
   address?: string; // The address to geocode
   latlng?: string; // The latitude/longitude of the location to geocode
-};
+}
 
 /**
  * Default options for the geocoding requests.
  */
-const defaultOptions: GeocodeOptions = {
+let defaultOptions: GeocodeOptions = {
   outputFormat: OutputFormat.JSON,
-  enable_address_descriptor: false
 };
 
 /**
@@ -74,18 +73,13 @@ const defaultOptions: GeocodeOptions = {
 async function geocodeRequest(
   queryParams: GeocodeQueryParams
 ): Promise<GeocodeResponse> {
+  const { outputFormat, ...restParams } = queryParams;
   const queryString = new URLSearchParams(
-    queryParams as any
+    restParams as Record<string, string>
   ).toString();
-  const url = `${GOOGLE_GEOCODE_API}/${defaultOptions.outputFormat}?${queryString}`;
+  const url = `${GOOGLE_GEOCODE_API}/${outputFormat}?${queryString}`;
   try {
     const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(
-        `Geocoding failed: ${response.statusText}. Server returned status code ${response.status}.`
-      );
-    }
-
     const json = await response.json();
     const { status, error_message } = json;
 
@@ -102,6 +96,18 @@ async function geocodeRequest(
     }
     throw new Error(`Geocoding request failed with unknown error: ${error}`);
   }
+}
+
+/**
+ * Sets default options for geocoding requests.
+ *
+ * @param options - The default options to set.
+ */
+export function setDefaults(options: GeocodeOptions): void {
+  defaultOptions = {
+    ...defaultOptions,
+    ...options,
+  };
 }
 
 /**
@@ -189,7 +195,9 @@ export function setOutputFormat(outputFormat: OutputFormat): void {
  *
  * @param enableAddressDescriptor - A boolean parameter indicating whether to include the address descriptor.
  */
-export function enableAddressDescriptor(enableAddressDescriptor: boolean): void {
+export function enableAddressDescriptor(
+  enableAddressDescriptor: boolean
+): void {
   defaultOptions.enable_address_descriptor = enableAddressDescriptor;
 }
 
@@ -208,13 +216,17 @@ export function geocode(
   value: string,
   options?: GeocodeOptions
 ): Promise<any> {
-  if (typeof requestType === 'string' && typeof value === 'string') {
-    throw new Error('Both requestType and value are required and must be valid.');
+  if (typeof requestType !== "string" || typeof value !== "string") {
+    throw new Error(
+      `Both requestType and value are required and must be of type string. 
+       requestType: ${typeof requestType}, value: ${typeof value}`
+    );
   }
+
   const queryParams: GeocodeQueryParams = {
     ...defaultOptions,
     ...options,
-    [requestType]: value
+    [requestType]: value,
   };
   return geocodeRequest(queryParams);
 }
@@ -231,7 +243,6 @@ export function fromAddress(
 ) {
   const options: GeocodeOptions = {
     outputFormat: OutputFormat.JSON,
-    enable_address_descriptor: false
   };
   if (key) {
     options.key = key;
@@ -245,7 +256,6 @@ export function fromAddress(
   return geocode(RequestType.ADDRESS, address, options);
 }
 
-
 /**
  * @deprecated use `geocode` instead
  * Usage: geocode("place_id", "ChIJd8BlQ2BZwokRAFUEcm_qrcA", *options)
@@ -258,7 +268,6 @@ export function fromPlaceId(
 ) {
   const options: GeocodeOptions = {
     outputFormat: OutputFormat.JSON,
-    enable_address_descriptor: false
   };
   if (key) {
     options.key = key;
@@ -282,11 +291,10 @@ export function fromLatLng(
   key?: string,
   language?: string,
   region?: string,
-  location_type?: string,
+  location_type?: string
 ) {
   const options: GeocodeOptions = {
     outputFormat: OutputFormat.JSON,
-    enable_address_descriptor: false
   };
   if (key) {
     options.key = key;
@@ -302,7 +310,6 @@ export function fromLatLng(
   }
   return geocode(RequestType.LATLNG, `${lat},${lng}`, options);
 }
-
 
 interface GeocodeResult {
   address_components: AddressComponent[];

@@ -2,10 +2,7 @@
 node_modules/
 npm-debug.log
 yarn-error.log
-
-# TypeScript files
-*.tsbuildinfo
-*.map
+yarn.lock
 
 # Build output
 /dist

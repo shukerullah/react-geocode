@@ -16,8 +16,9 @@ export interface GeocodeOptions {
     result_type?: string;
     location_type?: string;
     outputFormat: OutputFormat;
-    enable_address_descriptor: boolean;
+    enable_address_descriptor?: boolean;
 }
+export declare function setDefaults(options: GeocodeOptions): void;
 export declare function setKey(key: string): void;
 export declare function setLanguage(language: string): void;
 export declare function setRegion(region: string): void;
