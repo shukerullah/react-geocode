@@ -1,1 +1,19 @@
+# Node.js files
 node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+
+# Build output
+/dist
+
+# IDE and editor files
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
