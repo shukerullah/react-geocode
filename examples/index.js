@@ -50,7 +50,7 @@ fromLatLng(48.8583701, 2.2922926)
   .catch(console.error);
 
 // Get latitude & longitude from place_id.
-fromPlaceId("ChIJd8BlQ2BZwokRAFUEcm_qrcA")
+fromPlaceId("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
   .then(({ results }) => {
     const { lat, lng } = results[0].geometry.location;
     console.log(lat, lng);
@@ -110,7 +110,7 @@ const addressResponse = await geocode(RequestType.ADDRESS, "Eiffel Tower", {
 
 const placeIdResponse = await geocode(
   RequestType.PLACE_ID,
-  "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   { language: "en", region: "sp" }
 );
 
