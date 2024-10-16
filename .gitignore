@@ -4,9 +4,6 @@ npm-debug.log
 yarn-error.log
 yarn.lock
 
-# Build output
-/dist
-
 # IDE and editor files
 .vscode/
 .idea/

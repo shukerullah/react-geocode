@@ -1,6 +1,6 @@
 {
   "name": "react-geocode",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "A module to transform a description of a location (i.e. street address, town name, etc.) into geographic coordinates (i.e. latitude and longitude) and vice versa.",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
@@ -22,11 +22,12 @@
   },
   "homepage": "https://github.com/shukerullah/react-geocode#readme",
   "scripts": {
-    "build": "tsc && uglifyjs --compress --mangle --output ./dist/index.js -- ./dist/index.js"
+    "build": "vite build"
   },
   "devDependencies": {
     "@types/node": "^20.6.2",
-    "typescript": "^4.9.5",
-    "uglify-js": "^3.17.4"
+    "typescript": "^5.6.3",
+    "vite": "^5.4.9",
+    "vite-plugin-dts": "^4.2.4"
   }
 }
