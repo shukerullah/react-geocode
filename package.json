@@ -34,10 +34,12 @@
   },
   "homepage": "https://github.com/shukerullah/react-geocode#readme",
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\""
   },
   "devDependencies": {
     "@types/node": "^20.16.11",
+    "prettier": "^3.3.3",
     "typescript": "^5.6.3",
     "vite": "^5.4.9",
     "vite-plugin-dts": "^4.2.4"
