@@ -71,11 +71,11 @@ let defaultOptions: GeocodeOptions = {
  * @throws {Error} - Throws an error if the geocoding request fails.
  */
 async function geocodeRequest(
-  queryParams: GeocodeQueryParams
+  queryParams: GeocodeQueryParams,
 ): Promise<GeocodeResponse> {
   const { outputFormat, ...restParams } = queryParams;
   const queryString = new URLSearchParams(
-    restParams as Record<string, string>
+    restParams as Record<string, string>,
   ).toString();
   const url = `${GOOGLE_GEOCODE_API}/${outputFormat}?${queryString}`;
   try {
@@ -88,7 +88,7 @@ async function geocodeRequest(
     }
 
     throw new Error(
-      `Geocoding failed: ${error_message}. Server returned status code ${status}.`
+      `Geocoding failed: ${error_message}. Server returned status code ${status}.`,
     );
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -196,7 +196,7 @@ export function setOutputFormat(outputFormat: OutputFormat): void {
  * @param enableAddressDescriptor - A boolean parameter indicating whether to include the address descriptor.
  */
 export function enableAddressDescriptor(
-  enableAddressDescriptor: boolean
+  enableAddressDescriptor: boolean,
 ): void {
   defaultOptions.enable_address_descriptor = enableAddressDescriptor;
 }
@@ -214,12 +214,12 @@ export function enableAddressDescriptor(
 export function geocode(
   requestType: RequestType | string,
   value: string,
-  options?: GeocodeOptions
+  options?: GeocodeOptions,
 ): Promise<any> {
   if (typeof requestType !== "string" || typeof value !== "string") {
     throw new Error(
       `Both requestType and value are required and must be of type string. 
-       requestType: ${typeof requestType}, value: ${typeof value}`
+       requestType: ${typeof requestType}, value: ${typeof value}`,
     );
   }
 
@@ -239,7 +239,7 @@ export function fromAddress(
   address: string,
   key?: string,
   language?: string,
-  region?: string
+  region?: string,
 ) {
   const options: GeocodeOptions = {
     outputFormat: OutputFormat.JSON,
@@ -264,7 +264,7 @@ export function fromPlaceId(
   placeId: string,
   key?: string,
   language?: string,
-  region?: string
+  region?: string,
 ) {
   const options: GeocodeOptions = {
     outputFormat: OutputFormat.JSON,
@@ -291,7 +291,7 @@ export function fromLatLng(
   key?: string,
   language?: string,
   region?: string,
-  location_type?: string
+  location_type?: string,
 ) {
   const options: GeocodeOptions = {
     outputFormat: OutputFormat.JSON,
