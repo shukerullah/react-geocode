@@ -1,0 +1,11 @@
+.git
+.gitignore
+.github
+.vscode
+examples
+src
+.eslintrc
+.prettierrc
+tsconfig.json
+vite.config.js
+pnpm-lock.yaml 
